@@ -1,15 +1,22 @@
-const express = require('express');
-const app = express();
-
+import {config} from "dotenv"
 //configuring the env file only in development mode
-if (process.env.NODE_ENV !== 'PRODUCTION')
-    require("dotenv").config({ path: "config/config.env" })
+// if (process.env.NODE_ENV !== 'PRODUCTION')
+config()
+
+import {Request, Response} from "express";
+
+import express from "express"
+import cookieParser from "cookie-parser";
+const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
-const user = require('./routes/user');
+import userRouter from "./routes/user";
+app.get("/", (req:Request, res:Response)=>{
+    res.send("Working fine");
+})
+app.use('/api', userRouter);
 
-app.use('/api', user);
-
-module.exports = app;
+export default app;

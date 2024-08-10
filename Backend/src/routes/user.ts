@@ -1,7 +1,9 @@
-const router = require('express').Router();
+import {Router} from "express";
+import {loginUser, registerUser} from "../controllers/user"
 
-router.route('/register').get((req, res) => {
-    res.send("User Routes Working fine");
-})
+const userRouter = Router();
 
-module.exports = router;
+userRouter.route('/register').post(registerUser);
+userRouter.route('/login').post(loginUser);
+
+export default userRouter;

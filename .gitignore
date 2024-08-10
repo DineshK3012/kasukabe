@@ -1,3 +1,4 @@
-**/src/config/config.env
+**/.engv
 **/node_modules
 .idea
+requests.http

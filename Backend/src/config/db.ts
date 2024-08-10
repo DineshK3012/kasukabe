@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose"
 
-exports.connectDatabase = () =>{
-    mongoose.connect(process.env.MONGO_URI)
+const connectDatabase = () =>{
+    mongoose.connect(process.env.MONGO_URI as string)
         .then((con)=>{
             console.log(`MongoDB database connected with HOST: ${con.connection.host}`);
         })
@@ -9,3 +9,5 @@ exports.connectDatabase = () =>{
             console.log(`MongoDB database connection error: ${err}`);
         })
 }
+
+export default connectDatabase;
