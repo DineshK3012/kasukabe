@@ -48,7 +48,7 @@ userSchema.methods.matchPassword = async function (password: string): Promise<bo
 
 //method to generate jwt token
 userSchema.methods.generateToken = async function ():Promise<String> {
-    return await jwt.sign({ _id: this._id as string }, process.env.JWT_SECRET as string);
+    return jwt.sign({ _id: this._id as string }, process.env.JWT_SECRET as string);
 }
 
 export default mongoose.model<User>("User", userSchema);

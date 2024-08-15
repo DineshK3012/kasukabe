@@ -1,6 +1,4 @@
 import {config} from "dotenv"
-//configuring the env file only in development mode
-// if (process.env.NODE_ENV !== 'PRODUCTION')
 config()
 
 import {Request, Response} from "express";
@@ -13,10 +11,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+//cors integration here
+
 import userRouter from "./routes/user";
 app.get("/", (req:Request, res:Response)=>{
     res.send("Working fine");
 })
-app.use('/api', userRouter);
+
+app.use('/api/users', userRouter);
 
 export default app;

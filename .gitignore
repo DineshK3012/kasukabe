@@ -1,4 +1,3 @@
-**/.engv
+**/.env
 **/node_modules
 .idea
-requests.http
