@@ -3,7 +3,7 @@ export interface User{
     username: number;
     name: string;
     email: string;
-    profile_url: string;
+    profile_img: string;
     college_id: string;
     password: string;
     verified: boolean;

@@ -16,7 +16,7 @@ const userSchema= new mongoose.Schema<User>({
         type: String,
         required: true
     },
-    profile_url:{
+    profile_img:{
         type:String
     },
     college_id:{

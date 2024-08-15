@@ -1,10 +1,36 @@
 import {Request, Response} from "express";
 import User from "../models/user";
+import cloudinary from "../config/cloudinary";
+import path from "node:path";
 
 const registerUser = async (req: Request, res: Response)=> {
     try{
-        const {username, name, email, password} = req.body;
+        // console.log(req.files);
 
+        //uploading Profile pic of the user to cloudinary
+        const files = req.files as {[fieldname: string]: Express.Multer.File[]}
+        const profileImageMimeType = files.profile_img[0].mimetype.split('/').at(-1);
+        const fileName = files.profile_img[0].filename;
+        const filePath = path.resolve(__dirname, "../../public/data/uploads", fileName);
+
+        const uploadResult = await cloudinary.uploader.upload(filePath, {
+            filename_override: fileName,
+            folder: 'Placement_Insights/profiles',
+            format: profileImageMimeType,
+        })
+
+        //uploading college id of the user to cloudinary
+        const idFileName = files.college_id[0].filename;
+        const idFilePath = path.resolve(__dirname, "../../public/data/uploads", idFileName);
+        const idFileMimeType = files.college_id[0].mimetype.split('/').at(-1);
+
+        const idUploadResult = await cloudinary.uploader.upload(idFilePath, {
+            filename_override: idFileName,
+            folder: 'Placement_Insights/ids',
+            format: idFileMimeType
+        })
+
+        const {username, name, email, password} = req.body;
         if(!username || !name || !email || !password){
             return res.status(400).json({
                 success:false,
